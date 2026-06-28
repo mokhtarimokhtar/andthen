@@ -180,12 +180,7 @@ def register_routes(app):
     
     @app.get("/end/<pin>")
     def end(pin):
-        player_id = session.get("player_id")
-
-        if player_id is None:
-            return redirect("/")
-
-        final_story = game.get_final_story(pin, player_id)
+        final_story = game.get_final_story(pin)
 
         return render_template(
             "end.html",

@@ -80,6 +80,27 @@ def get_current_player(players, sentence_count):
     return players[index]
 
 
+def load_game(pin):
+    current_game = models.get_game_by_pin(pin)
+
+    if current_game is None:
+        raise ValueError("Game not found")
+
+    return current_game
+
+
+def load_player_for_game(game_id, player_id):
+    player = models.get_player(player_id)
+
+    if player is None:
+        raise ValueError("Player not found")
+
+    if player["game_id"] != game_id:
+        raise ValueError("Wrong game")
+
+    return player
+
+
 def set_player_typing(player_id):
     typing_players[player_id] = time.time()
 
@@ -121,8 +142,6 @@ def join_game(pin, nickname):
     if current_game is None:
         raise ValueError("Game not found")
 
-    # if current_game["status"] != "waiting":
-    #     raise ValueError("Game already started")
     if current_game["status"] == "ended":
         raise ValueError("Game already ended")
 
@@ -160,12 +179,14 @@ def get_waiting_room(pin):
 
 
 def start_game(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
 
-    player = models.get_player(player_id)
+    
+    player = load_player_for_game(current_game["id"], player_id)
 
     if player is None:
         raise ValueError("Player not found")
@@ -180,12 +201,14 @@ def start_game(pin, player_id):
 
 
 def get_story_state(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
 
-    player = models.get_player(player_id)
+    
+    player = load_player_for_game(current_game["id"], player_id)
 
     if player is None:
         raise ValueError("Player not found")
@@ -232,7 +255,8 @@ def get_story_state(pin, player_id):
 def add_sentence(pin, player_id, content):
     content = clean_sentence(content)
 
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
@@ -240,7 +264,8 @@ def add_sentence(pin, player_id, content):
     if current_game["status"] != "playing":
         raise ValueError("Game is not playing")
 
-    player = models.get_player(player_id)
+    
+    player = load_player_for_game(current_game["id"], player_id)
 
     if player is None:
         raise ValueError("Player not found")
@@ -270,12 +295,14 @@ def add_sentence(pin, player_id, content):
 
 
 def mark_typing(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
 
-    player = models.get_player(player_id)
+    
+    player = load_player_for_game(current_game["id"], player_id)
 
     if player is None:
         raise ValueError("Player not found")
@@ -287,7 +314,8 @@ def mark_typing(pin, player_id):
 
 
 def skip_turn(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
@@ -295,7 +323,8 @@ def skip_turn(pin, player_id):
     if current_game["status"] != "playing":
         raise ValueError("Game is not playing")
 
-    host = models.get_player(player_id)
+    # host = models.get_player(player_id)
+    host = load_player_for_game(current_game["id"], player_id)
 
     if host is None:
         raise ValueError("Player not found")
@@ -324,8 +353,10 @@ def skip_turn(pin, player_id):
         type="skip",
     )
 
+
 def end_story(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+    
+    current_game = load_game(pin)
 
     if current_game is None:
         raise ValueError("Game not found")
@@ -333,7 +364,8 @@ def end_story(pin, player_id):
     if current_game["status"] != "playing":
         raise ValueError("Game is not playing")
 
-    player = models.get_player(player_id)
+    
+    player = load_player_for_game(current_game["id"], player_id)
 
     if player is None:
         raise ValueError("Player not found")
@@ -347,19 +379,11 @@ def end_story(pin, player_id):
     models.end_game(current_game["id"])
 
 
-def get_final_story(pin, player_id):
-    current_game = models.get_game_by_pin(pin)
+def get_final_story(pin):
+    current_game = load_game(pin)
 
-    if current_game is None:
-        raise ValueError("Game not found")
-
-    player = models.get_player(player_id)
-
-    if player is None:
-        raise ValueError("Player not found")
-
-    if player["game_id"] != current_game["id"]:
-        raise ValueError("Wrong game")
+    if current_game["status"] != "ended":
+        raise ValueError("Game not ended")
 
     sentences = [
         serialize_sentence(sentence)
