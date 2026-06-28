@@ -18,10 +18,12 @@
     <h2>The Story</h2>
 
     <article id="final-story">
-      <!-- {{ story.text }} -->
       {% for sentence in story.sentences %}
       <p>{{ sentence.content }}</p>
       {% endfor %}
+      <p class="authors">
+        by {{ story.authors | join(", ") }}
+      </p>
     </article>
 
     <button id="share-button" type="button">
@@ -37,7 +39,6 @@
   </main>
 
   <script>
-    const FINAL_STORY = {{ story.text| tojson }};
     const GAME_PIN = "{{ story.pin }}";
   </script>
 

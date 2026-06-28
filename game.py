@@ -380,6 +380,7 @@ def end_story(pin, player_id):
 
 
 def get_final_story(pin):
+    authors = []
     current_game = load_game(pin)
 
     if current_game["status"] != "ended":
@@ -391,8 +392,12 @@ def get_final_story(pin):
         if sentence["type"] == "sentence"
     ]
 
+    for sentence in sentences:
+        if sentence["nickname"] not in authors:
+            authors.append(sentence["nickname"])
+
     return {
         "pin": current_game["pin"],
         "sentences": sentences,
-        "text": " ".join(sentence["content"] for sentence in sentences),
+        "authors": authors,
     }

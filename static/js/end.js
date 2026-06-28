@@ -8,10 +8,13 @@ ${window.location.origin}/end/${GAME_PIN}`;
 
 function saveStory() {
 
-  const title = FINAL_STORY
-    .split(".")[0]
-    .trim()
-    .substring(0, 50);
+  const firstSentence =
+    document
+      .querySelector("#final-story p")
+      ?.textContent
+      ?.trim() || "";
+
+  const title = firstSentence.substring(0, 50);
 
   let stories = JSON.parse(
     localStorage.getItem("recentStories") || "[]"
@@ -27,7 +30,7 @@ function saveStory() {
     date: new Date().toISOString()
   });
 
-  // On garde seulement les 20 dernières
+  // Conserve uniquement les 20 dernières histoires
   stories = stories.slice(0, 20);
 
   localStorage.setItem(
