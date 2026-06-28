@@ -179,7 +179,6 @@ def get_waiting_room(pin):
 
 
 def start_game(pin, player_id):
-    
     current_game = load_game(pin)
 
     if current_game is None:
@@ -201,7 +200,6 @@ def start_game(pin, player_id):
 
 
 def get_story_state(pin, player_id):
-    
     current_game = load_game(pin)
 
     if current_game is None:
@@ -255,7 +253,6 @@ def get_story_state(pin, player_id):
 def add_sentence(pin, player_id, content):
     content = clean_sentence(content)
 
-    
     current_game = load_game(pin)
 
     if current_game is None:
@@ -294,8 +291,7 @@ def add_sentence(pin, player_id, content):
     )
 
 
-def mark_typing(pin, player_id):
-    
+def mark_typing(pin, player_id): 
     current_game = load_game(pin)
 
     if current_game is None:
@@ -314,7 +310,6 @@ def mark_typing(pin, player_id):
 
 
 def skip_turn(pin, player_id):
-    
     current_game = load_game(pin)
 
     if current_game is None:
@@ -323,7 +318,6 @@ def skip_turn(pin, player_id):
     if current_game["status"] != "playing":
         raise ValueError("Game is not playing")
 
-    # host = models.get_player(player_id)
     host = load_player_for_game(current_game["id"], player_id)
 
     if host is None:
@@ -354,8 +348,7 @@ def skip_turn(pin, player_id):
     )
 
 
-def end_story(pin, player_id):
-    
+def end_story(pin, player_id): 
     current_game = load_game(pin)
 
     if current_game is None:

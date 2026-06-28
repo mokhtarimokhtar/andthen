@@ -177,6 +177,7 @@ def register_routes(app):
         game.end_story(pin, player_id)
 
         return "", 204
+
     
     @app.get("/end/<pin>")
     def end(pin):
