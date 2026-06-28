@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Story - AndThen</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>AndThen</h1>
+
+    <h2>The Story</h2>
+
+    <article id="final-story">
+      <!-- {{ story.text }} -->
+      {% for sentence in story.sentences %}
+      <p>{{ sentence.content }}</p>
+      {% endfor %}
+    </article>
+
+    <button id="share-button" type="button">
+      Share
+    </button>
+
+    <a href="/">
+      <button type="button">
+        Play
+      </button>
+    </a>
+
+  </main>
+
+  <script>
+    const FINAL_STORY = {{ story.text| tojson }};
+    const GAME_PIN = "{{ story.pin }}";
+  </script>
+
+  <script src="{{ url_for('static', filename='js/end.js') }}"></script>
+
+</body>
+
+</html>

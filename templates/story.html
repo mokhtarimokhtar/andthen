@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story - AndThen</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>AndThen</h1>
+
+    <p>PIN: {{ state.pin }}</p>
+
+    <section>
+      <h2>Story</h2>
+
+      <div id="story-text">
+        {% for sentence in state.sentences %}
+        {% if sentence.type == "sentence" %}
+        <p>
+          <strong>{{ sentence.nickname }}</strong>
+          {{ sentence.content }}
+        </p>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section>
+      <p id="turn-indicator">
+        {% if state.turn.is_my_turn %}
+        👉 It's your turn.
+        {% elif state.turn.is_typing %}
+        {{ state.turn.nickname }} is typing...
+        {% elif state.turn.nickname %}
+        Waiting for {{ state.turn.nickname }}...
+        {% endif %}
+      </p>
+
+      <form id="sentence-form">
+        <textarea
+          id="sentence-input"
+          name="content"
+          maxlength="280"
+          placeholder="Write the next sentence..."
+          {% if not state.turn.is_my_turn %}disabled{% endif %}
+          required></textarea>
+
+        <p id="char-counter">0 / 140</p>
+
+        <button
+          id="submit-button"
+          type="submit"
+          {% if not state.turn.is_my_turn %}disabled{% endif %}>
+          Add sentence
+        </button>
+      </form>
+
+      {% if state.me.is_host %}
+      <button id="skip-button" type="button">
+        Skip Turn
+      </button>
+      {% endif %}
+
+      {% if state.me.is_host %}
+      <button id="end-button" type="button">
+        End Story
+      </button>
+      {% endif %}
+    </section>
+
+  </main>
+
+  <script>
+    const GAME_PIN = "{{ state.pin }}";
+  </script>
+
+  <script src="{{ url_for('static', filename='js/story.js') }}"></script>
+
+</body>
+
+</html>

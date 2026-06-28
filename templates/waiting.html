@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiting Room - AndThen</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>AndThen</h1>
+
+        <p>Share this PIN:</p>
+
+        <div class="pin">
+            {{ room.pin }}
+        </div>
+
+        <h2>Players</h2>
+
+        <ul id="players-list">
+            {% for player in room.players %}
+            <li>
+                {{ player.nickname }}
+                {% if player.is_host %}
+                <strong>(Host)</strong>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% if is_host %}
+        <button id="start-button">
+            Start Story
+        </button>
+        {% endif %}
+
+    </main>
+    <script>
+
+        const GAME_PIN = "{{ room.pin }}";
+        const IS_HOST = {{ "true" if is_host else "false" }};
+
+    </script>
+    <script src="{{ url_for('static', filename='js/waiting.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AndThen</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <h1>AndThen</h1>
+
+    <p>Together, we made this.</p>
+
+    <form id="create-form" action="/create" method="post">
+
+      <input
+        type="text"
+        name="nickname"
+        placeholder="Your nickname"
+        maxlength="20"
+        required
+        autocomplete="off">
+
+      <button type="submit">
+        Create Story
+      </button>
+
+    </form>
+
+    <hr>
+
+    <button id="join-button">
+      Join Story
+    </button>
+
+  </main>
+
+  <section id="recent-stories" hidden>
+
+    <hr>
+
+    <h2>Recent Stories</h2>
+
+    <ul id="stories-list">
+
+    </ul>
+
+  </section>
+
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+
+</body>
+
+</html>
