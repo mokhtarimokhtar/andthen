@@ -15,6 +15,11 @@ def register_routes(app):
     def home():
         return render_template("home.html")
 
+    
+    @app.get("/create")
+    def create_page():
+        return render_template("create.html")
+
 
     @app.post("/create")
     def create():
@@ -30,6 +35,21 @@ def register_routes(app):
             )
         )
 
+
+    @app.get("/api/game/<pin>")
+    def game_status(pin):
+
+        try:
+            room = game.get_waiting_room(pin)
+
+            return {
+                "pin": room["pin"],
+                "status": room["status"],
+            }
+
+        except ValueError:
+            return {}, 404
+    
 
     @app.get("/join")
     def join():
@@ -166,6 +186,17 @@ def register_routes(app):
 
         return "", 204
     
+    
+    @app.post("/api/story/<pin>/pass")
+    def pass_turn(pin):
+        player_id = session.get("player_id")
+
+        try:
+            game.pass_turn(pin, player_id)
+            return "", 204
+
+        except ValueError:
+            return "", 400
 
     @app.post("/api/story/<pin>/end")
     def end_story(pin):

@@ -1,3 +1,4 @@
+localStorage.setItem("currentGame", GAME_PIN);
 const playersList = document.getElementById("players-list");
 
 async function refreshWaitingRoom() {

@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Home
+   ========================================================================== */
+
+.home-header {
+    padding-top: 34px;
+}
+
+.story-menu {
+    display: grid;
+    gap: 4px;
+
+    margin-top: 10px;
+    padding: 10px;
+
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+
+    background: var(--white);
+}
+
+.story-menu a,
+.story-menu button {
+    width: 100%;
+    padding: 12px;
+
+    border: 0;
+    border-radius: 12px;
+
+    background: transparent;
+    color: var(--black);
+
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+}
+
+.bottom-sheet-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: flex-end;
+
+    background: rgba(0,0,0,.25);
+
+    z-index: 100;
+}
+
+.bottom-sheet {
+    width: 100%;
+
+    padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+
+    border-radius: 22px 22px 0 0;
+
+    background: var(--white);
+
+    display: grid;
+    gap: 8px;
+
+    animation: bottom-sheet-up .18s ease-out;
+}
+
+.bottom-sheet-item {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 14px 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--black);
+
+    font: inherit;
+    font-weight: 500;
+}
+
+.bottom-sheet-item.danger {
+    color: #d32f2f;
+}
+
+@keyframes bottom-sheet-up {
+
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+
+}
+/* ==========================================================================
+   Story
+   ========================================================================== */
+
+.story-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    padding-bottom: 10px;
+
+    background: var(--white);
+}
+
+.story-page {
+    min-height: 100vh;
+}
+
+.story-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.story-topbar strong {
+    flex: 1;
+}
+
+.story-back {
+    display: grid;
+    place-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 999px;
+
+    background: var(--gray-100);
+    color: var(--black);
+
+    text-decoration: none;
+}
+
+.story-back .material-symbols-rounded {
+    font-size: 22px;
+}
+
+/* .story-content {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+} */
+.story-content {
+    height: auto;
+    overflow: visible;
+}
+
+/* .story-text {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 24px;
+    border: 1px solid var(--gray-200);
+    border-radius: 18px;
+} */
+.story-text {
+    /* padding: 28px 0 260px; */
+    padding: 28px 0 100px;
+    border: 0;
+    border-radius: 0;
+}
+
+
+.story-text p {
+    margin-bottom: 0;
+    color: var(--gray-900);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* .story-footer {
+    flex-shrink: 0;
+    padding-top: 14px;
+    background: var(--white);
+} */
+.story-footer {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    padding: 14px 20px 20px;
+    background: var(--white);
+    z-index: 10;
+}
+
+
+
+/* ==========================================================================
+   End
+   ========================================================================== */
+
+.final-story {
+    margin-bottom: 32px;
+}
+
+.final-story p {
+    margin-bottom: 0;
+
+    color: var(--gray-900);
+    font-size: 1.15rem;
+    line-height: 1.8;
+
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.story-credits {
+    margin: 8px 0 0 52px;
+
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.end-page {
+    min-height: 100vh;
+    padding-bottom: 150px;
+}
+
+.end-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    padding-bottom: 18px;
+
+    background: var(--white);
+}
+
+.end-header .story-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.end-header strong {
+    font-size: 20px;
+}
+
+.end-footer {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    z-index: 10;
+
+    display: grid;
+    gap: 12px;
+
+    width: 100%;
+    max-width: 430px;
+
+    padding: 14px 20px 20px;
+
+    transform: translateX(-50%);
+
+    background: var(--white);
+}

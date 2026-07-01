@@ -1,0 +1,66 @@
+.players-bar {
+    display: flex;
+    gap: 12px;
+
+    /* overflow-x: auto; */
+    flex-wrap: wrap;
+    overflow: visible;
+
+    margin-top: 14px;
+    padding-bottom: 6px;
+
+}
+
+.player-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: var(--gray-100);
+
+    white-space: nowrap;
+
+    font-weight: 500;
+
+    transition:
+        background-color .25s,
+        color .25s,
+        transform .25s,
+        box-shadow .25s;
+}
+
+.player-chip.active {
+    background: var(--black);
+    color: var(--white);
+
+    animation: active-player 1.8s ease-in-out infinite;
+}
+
+.player-chip.clickable {
+    cursor: pointer;
+}
+
+.turn-actions {
+    margin-top: 6px;
+}
+
+@keyframes active-player {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.20);
+    }
+
+    50% {
+        transform: scale(1.07);
+        box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.08);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.20);
+    }
+}

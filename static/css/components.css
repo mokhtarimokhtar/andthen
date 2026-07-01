@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+button,
+.button {
+    display: inline-block;
+    width: 100%;
+
+    padding: 16px 18px;
+    border: 0;
+    border-radius: var(--radius);
+
+    background: var(--black);
+    color: var(--white);
+
+    font: inherit;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+button.secondary,
+.button.secondary {
+    background: var(--gray-100);
+    color: var(--black);
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.link-button {
+    display: block;
+    width: auto;
+
+    margin: 16px auto 0;
+    padding: 0;
+
+    background: transparent;
+    color: var(--gray-600);
+
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.link-button:hover {
+    color: var(--black);
+}
+
+.icon-button {
+    width: auto;
+    height: auto;
+    padding: 4px;
+    border: 0;
+
+    background: transparent;
+    color: var(--gray-600);
+}
+
+.icon-button .material-symbols-rounded {
+    font-size: 20px;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+form {
+    display: grid;
+    gap: 12px;
+}
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 16px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+
+    /* background: var(--white); */
+    color: var(--black);
+
+    font: inherit;
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+    margin-bottom: 28px;
+
+    border-radius: 999px;
+
+    background: var(--gray-100);
+    color: var(--black);
+
+    text-decoration: none;
+    font-size: 24px;
+}
+
+/* ==========================================================================
+   Layout Helpers
+   ========================================================================== */
+
+.action-stack {
+    display: grid;
+    gap: 12px;
+}
+
+/* ==========================================================================
+   PIN
+   ========================================================================== */
+
+.pin {
+    margin: 12px 0 28px;
+
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.pin-card {
+    margin-bottom: 34px;
+    padding: 22px;
+
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+}
+
+.pin-card span {
+    display: block;
+    margin-bottom: 8px;
+
+    color: var(--gray-600);
+    font-size: 13px;
+}
+
+.pin-card strong {
+    display: block;
+
+    font-size: 22px;
+    letter-spacing: 0.12em;
+}
+
+.pin-group {
+    display: flex;
+    align-items: center;
+}
+
+.pin-label {
+    color: var(--gray-600);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+/* ==========================================================================
+   Resume
+   ========================================================================== */
+
+.resume-link {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.resume-link a {
+    color: var(--gray-600);
+
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.resume-link a:hover {
+    color: var(--black);
+}

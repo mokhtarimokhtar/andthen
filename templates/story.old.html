@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Story - AndThen{% endblock %}
+
+{% block content %}
+
+<header class="story-topbar">
+
+  <a class="story-back" href="/">←</a>
+
+  <strong>Story</strong>
+
+  <div class="pin-group">
+
+    <span class="pin-label">
+      PIN {{ state.pin }}
+    </span>
+
+    <button
+      id="copy-pin-button"
+      class="icon-button"
+      type="button"
+      title="Copy PIN">
+
+      <span class="material-symbols-rounded">
+        content_copy
+      </span>
+
+    </button>
+
+  </div>
+
+</header>
+
+<nav class="players-bar">
+
+  {% for player in state.players %}
+
+  <span
+    id="player-{{ player.id }}"
+    class="player-chip">
+
+    {{ player.nickname }}
+
+  </span>
+
+  {% endfor %}
+
+</nav>
+
+<!-- <hr> -->
+
+<section
+  id="story-container"
+  class="story-text">
+
+  {% for sentence in state.sentences %}
+  {% if sentence.type == "sentence" %}
+  <p>{{ sentence.content }}</p>
+  {% endif %}
+  {% endfor %}
+
+</section>
+<p id="typing-indicator" class="muted"></p>
+
+<footer class="story-footer">
+
+  <div class="composer-header">
+    <p id="turn-message"></p>
+    <span id="character-count">0 / 140</span>
+  </div>
+
+  <form id="sentence-form" class="composer">
+
+    <textarea
+      id="sentence-input"
+      maxlength="140"
+      placeholder="Write the next sentence..."></textarea>
+
+    <button
+      id="send-button"
+      class="send-button"
+      type="submit">
+      <span class="material-symbols-rounded">arrow_upward</span>
+    </button>
+
+  </form>
+
+  {% if state.me.is_host %}
+  <button
+    id="skip-button"
+    class="link-button"
+    type="button">
+    Skip turn
+  </button>
+
+  <button
+    id="end-button"
+    class="secondary end-story-button"
+    type="button">
+    End Story
+  </button>
+  {% endif %}
+
+</footer>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+  const GAME_PIN = "{{ state.pin }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/story.js') }}"></script>
+
+{% endblock %}

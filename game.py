@@ -348,6 +348,34 @@ def skip_turn(pin, player_id):
     )
 
 
+def pass_turn(pin, player_id):
+    current_game = load_game(pin)
+    player = load_player_for_game(current_game["id"], player_id)
+
+    if current_game["status"] != "playing":
+        raise ValueError("Game is not playing")
+
+    players = [
+        serialize_player(player_row)
+        for player_row in models.list_players(current_game["id"])
+    ]
+
+    sentence_count = models.count_sentences(current_game["id"])
+    current_player = get_current_player(players, sentence_count)
+
+    if current_player["id"] != player_id:
+        raise ValueError("Not your turn")
+
+    turn_number = sentence_count + 1
+
+    models.create_sentence(
+        game_id=current_game["id"],
+        player_id=player_id,
+        turn_number=turn_number,
+        content="",
+        type="skip",
+    )
+
 def end_story(pin, player_id): 
     current_game = load_game(pin)
 

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Create Story - AndThen{% endblock %}
+
+{% block content %}
+
+<a class="back-link" href="/">←</a>
+
+<header class="page-header">
+    <h1>Create Story</h1>
+    <p class="tagline">Choose a nickname.</p>
+</header>
+
+<form action="/create" method="post">
+
+    <input
+        id="nickname-input"
+        type="text"
+        name="nickname"
+        placeholder="Your nickname"
+        maxlength="20"
+        required
+        autocomplete="off"
+        autofocus>
+
+    <button id="create-button" type="submit" disabled>
+        Create Story
+    </button>
+
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/create.js') }}"></script>
+{% endblock %}

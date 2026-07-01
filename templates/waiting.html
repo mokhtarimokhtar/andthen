@@ -1,54 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waiting Room - AndThen</title>
+{% block title %}Waiting Room - AndThen{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<a class="back-link" href="/">←</a>
 
-    <main class="container">
+<header class="page-header">
+    <h1>Waiting Room</h1>
+    <p class="tagline">Share this PIN with your friends.</p>
+</header>
 
-        <h1>AndThen</h1>
+<section class="pin-card">
+    <span>PIN</span>
+    <strong>{{ room.pin }}</strong>
+</section>
 
-        <p>Share this PIN:</p>
+<section class="players-section">
+    <h2>Players</h2>
 
-        <div class="pin">
-            {{ room.pin }}
-        </div>
+    <ul id="players-list" class="players-list">
+        {% for player in room.players %}
+        <li>
+            <span>{{ player.nickname }}</span>
+            {% if player.is_host %}
+            <small>Host</small>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
 
-        <h2>Players</h2>
+<section class="waiting-actions">
+    {% if is_host %}
+    <button id="start-button" type="button">
+        Start Story
+    </button>
+    {% else %}
+    <p class="muted">Waiting for the host to start...</p>
+    {% endif %}
+</section>
 
-        <ul id="players-list">
-            {% for player in room.players %}
-            <li>
-                {{ player.nickname }}
-                {% if player.is_host %}
-                <strong>(Host)</strong>
-                {% endif %}
-            </li>
-            {% endfor %}
-        </ul>
+{% endblock %}
 
-        {% if is_host %}
-        <button id="start-button">
-            Start Story
-        </button>
-        {% endif %}
+{% block scripts %}
+<script>
+    const GAME_PIN = "{{ room.pin }}";
+    const IS_HOST = {{ "true" if is_host else "false" }};
+</script>
 
-    </main>
-    <script>
-
-        const GAME_PIN = "{{ room.pin }}";
-        const IS_HOST = {{ "true" if is_host else "false" }};
-
-    </script>
-    <script src="{{ url_for('static', filename='js/waiting.js') }}"></script>
-
-</body>
-
-</html>
+<script src="{{ url_for('static', filename='js/waiting.js') }}"></script>
+{% endblock %}

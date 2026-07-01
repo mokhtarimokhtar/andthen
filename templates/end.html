@@ -1,49 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Final Story - AndThen</title>
+{% block title %}Final Story - AndThen{% endblock %}
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<div class="end-page">
 
-  <main class="container">
+  <header class="end-header">
 
-    <h1>AndThen</h1>
+    <div class="story-topbar">
+      <a class="story-back" href="/" aria-label="Back">
+        <span class="material-symbols-rounded">arrow_back</span>
+      </a>
 
-    <h2>The Story</h2>
+      <strong>Our Story</strong>
+    </div>
 
-    <article id="final-story">
+    <p class="story-credits">
+      by {{ story.authors | join(" · ") }}
+    </p>
+
+  </header>
+
+  <main class="end-content">
+    <article id="final-story" class="final-story">
       {% for sentence in story.sentences %}
       <p>{{ sentence.content }}</p>
       {% endfor %}
-      <p class="authors">
-        by {{ story.authors | join(", ") }}
-      </p>
+
     </article>
-
-    <button id="share-button" type="button">
-      Share
-    </button>
-
-    <a href="/">
-      <button type="button">
-        Play
-      </button>
-    </a>
-
   </main>
 
-  <script>
-    const GAME_PIN = "{{ story.pin }}";
-  </script>
+  <footer class="end-footer">
+    <button id="share-button" type="button">
+      Share Story
+    </button>
 
-  <script src="{{ url_for('static', filename='js/end.js') }}"></script>
+    <a class="button secondary" href="/">
+      New Story
+    </a>
+  </footer>
 
-</body>
+</div>
 
-</html>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const GAME_PIN = "{{ story.pin }}";
+</script>
+
+<script src="{{ url_for('static', filename='js/end.js') }}"></script>
+{% endblock %}

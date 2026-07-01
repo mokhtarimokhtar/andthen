@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Story - AndThen</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<main class="container">
+
+    <h1>Join Story</h1>
+
+    <form action="/join" method="post">
+
+        <input
+                type="text"
+                name="pin"
+                placeholder="PIN"
+                maxlength="4"
+                required
+                autocomplete="off">
+
+        <input
+                type="text"
+                name="nickname"
+                placeholder="Your nickname"
+                maxlength="20"
+                required
+                autocomplete="off">
+
+        <button type="submit">
+            Join
+        </button>
+
+    </form>
+
+</main>
+
+<script src="{{ url_for('static', filename='js/join.js') }}"></script>
+
+</body>
+
+</html>

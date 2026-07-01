@@ -1,88 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Story - AndThen</title>
+{% block title %}Story - AndThen{% endblock %}
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<div class="story-page">
+  <header class="story-sticky-header">
+    <div class="story-topbar">
+      <a class="story-back" href="/" aria-label="Back">
+        <span class="material-symbols-rounded">
+          arrow_back
+        </span>
+      </a>
 
-  <main class="container">
+      <strong>Story</strong>
 
-    <h1>AndThen</h1>
+      <div class="pin-group">
 
-    <p>PIN: {{ state.pin }}</p>
-
-    <section>
-      <h2>Story</h2>
-
-      <div id="story-text">
-        {% for sentence in state.sentences %}
-        {% if sentence.type == "sentence" %}
-        <p>
-          <strong>{{ sentence.nickname }}</strong>
-          {{ sentence.content }}
-        </p>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </section>
-
-    <section>
-      <p id="turn-indicator">
-        {% if state.turn.is_my_turn %}
-        👉 It's your turn.
-        {% elif state.turn.is_typing %}
-        {{ state.turn.nickname }} is typing...
-        {% elif state.turn.nickname %}
-        Waiting for {{ state.turn.nickname }}...
-        {% endif %}
-      </p>
-
-      <form id="sentence-form">
-        <textarea
-          id="sentence-input"
-          name="content"
-          maxlength="280"
-          placeholder="Write the next sentence..."
-          {% if not state.turn.is_my_turn %}disabled{% endif %}
-          required></textarea>
-
-        <p id="char-counter">0 / 140</p>
+        <span class="pin-label">
+          PIN {{ state.pin }}
+        </span>
 
         <button
-          id="submit-button"
-          type="submit"
-          {% if not state.turn.is_my_turn %}disabled{% endif %}>
-          Add sentence
+          id="copy-pin-button"
+          class="icon-button"
+          type="button"
+          title="Copy PIN">
+          <span class="material-symbols-rounded">
+            content_copy
+          </span>
         </button>
-      </form>
 
-      {% if state.me.is_host %}
-      <button id="skip-button" type="button">
-        Skip Turn
-      </button>
-      {% endif %}
+        {% include "components/story_menu.html" %}
 
-      {% if state.me.is_host %}
-      <button id="end-button" type="button">
-        End Story
-      </button>
+      </div>
+
+    </div>
+
+    {% include "components/player_bar.html" %}
+
+  </header>
+
+  <main class="story-content">
+
+    <section
+      id="story-container"
+      class="story-text">
+
+      {% for sentence in state.sentences %}
+      {% if sentence.type == "sentence" %}
+      <p>{{ sentence.content }}</p>
       {% endif %}
+      {% endfor %}
+
     </section>
+
+    <p id="typing-indicator" class="muted"></p>
 
   </main>
 
-  <script>
-    const GAME_PIN = "{{ state.pin }}";
-  </script>
+  {% include "components/composer.html" %}
+</div>
 
-  <script src="{{ url_for('static', filename='js/story.js') }}"></script>
+{% endblock %}
 
-</body>
+{% block scripts %}
 
-</html>
+<script>
+  const GAME_PIN = "{{ state.pin }}";
+  const IS_HOST = {{ "true" if state.me.is_host else "false" }};
+</script>
+<script src="{{ url_for('static', filename='js/components/composer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/story.js') }}"></script>
+
+{% endblock %}

@@ -1,13 +1,6 @@
 const shareButton = document.getElementById("share-button");
 
-function buildShareText() {
-  return `Read our story on AndThen
-
-${window.location.origin}/end/${GAME_PIN}`;
-}
-
 function saveStory() {
-
   const firstSentence =
     document
       .querySelector("#final-story p")
@@ -20,17 +13,14 @@ function saveStory() {
     localStorage.getItem("recentStories") || "[]"
   );
 
-  // Supprime un éventuel doublon
   stories = stories.filter(story => story.pin !== GAME_PIN);
 
-  // Ajoute en tête
   stories.unshift({
     pin: GAME_PIN,
     title: title || "Untitled story",
     date: new Date().toISOString()
   });
 
-  // Conserve uniquement les 20 dernières histoires
   stories = stories.slice(0, 20);
 
   localStorage.setItem(
@@ -39,26 +29,21 @@ function saveStory() {
   );
 }
 
+async function copyStoryLink() {
+  const url = `${window.location.origin}/end/${GAME_PIN}`;
+
+  await navigator.clipboard.writeText(
+    `Read our story on AndThen\n\n${url}`
+  );
+
+  shareButton.textContent = "Copied";
+
+  setTimeout(() => {
+    shareButton.textContent = "Share Story";
+  }, 1200);
+}
+
 saveStory();
+localStorage.removeItem("currentGame");
 
-shareButton.addEventListener("click", async () => {
-
-  const shareUrl = `${window.location.origin}/end/${GAME_PIN}`;
-
-  if (navigator.share) {
-
-    await navigator.share({
-      title: "AndThen",
-      text: "Read our story on AndThen",
-      url: shareUrl,
-    });
-
-    return;
-
-  }
-
-  await navigator.clipboard.writeText(buildShareText());
-
-  shareButton.textContent = "Copied!";
-
-});
+shareButton.addEventListener("click", copyStoryLink);

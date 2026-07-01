@@ -1,48 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Story - AndThen</title>
+{% block title %}Join Story - AndThen{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<a class="back-link" href="/">←</a>
 
-<main class="container">
-
+<header class="page-header">
     <h1>Join Story</h1>
+    <p class="tagline">Enter the PIN and choose a nickname.</p>
+</header>
 
-    <form action="/join" method="post">
+<form action="/join" method="post">
 
-        <input
-                type="text"
-                name="pin"
-                placeholder="PIN"
-                maxlength="4"
-                required
-                autocomplete="off">
+    <input
+        id="pin-input"
+        type="text"
+        name="pin"
+        placeholder="PIN"
+        maxlength="4"
+        inputmode="numeric"
+        autocomplete="off"
+        required
+        autofocus>
 
-        <input
-                type="text"
-                name="nickname"
-                placeholder="Your nickname"
-                maxlength="20"
-                required
-                autocomplete="off">
+    <input
+        id="nickname-input"
+        type="text"
+        name="nickname"
+        placeholder="Your nickname"
+        maxlength="20"
+        autocomplete="off"
+        required>
 
-        <button type="submit">
-            Join
-        </button>
+    <button id="join-button" type="submit" disabled>
+        Join Story
+    </button>
 
-    </form>
+</form>
 
-</main>
+{% endblock %}
 
+{% block scripts %}
 <script src="{{ url_for('static', filename='js/join.js') }}"></script>
-
-</body>
-
-</html>
+{% endblock %}

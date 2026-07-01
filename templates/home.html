@@ -1,60 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AndThen</title>
+{% block title %}AndThen{% endblock %}
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block content %}
 
-<body>
+<header class="page-header home-header">
 
-  <main class="container">
+  <h1>AndThen</h1>
 
-    <h1>AndThen</h1>
+  <p class="tagline">
+    Write stories together.<br>
+    One sentence at a time.
+  </p>
 
-    <p>Together, we made this.</p>
+</header>
 
-    <form id="create-form" action="/create" method="post">
+<section class="action-stack">
 
-      <input
-        type="text"
-        name="nickname"
-        placeholder="Your nickname"
-        maxlength="20"
-        required
-        autocomplete="off">
+  <a class="button" href="/create">
+    Create Story
+  </a>
 
-      <button type="submit">
-        Create Story
-      </button>
+  <button
+    id="join-button"
+    class="secondary"
+    type="button">
+    Join Story
+  </button>
 
-    </form>
+</section>
 
-    <hr>
+<div id="resume-container" class="resume-link" hidden>
 
-    <button id="join-button">
-      Join Story
-    </button>
+  <a id="resume-button" href="#">
+    Continue your story →
+  </a>
 
-  </main>
+</div>
 
-  <section id="recent-stories" hidden>
+<section id="recent-stories" hidden>
 
-    <hr>
+  <hr>
 
-    <h2>Recent Stories</h2>
+  <h2>Recent Stories</h2>
 
-    <ul id="stories-list">
+  <ul id="stories-list"></ul>
 
-    </ul>
+</section>
 
-  </section>
+{% endblock %}
 
-  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
-
-</body>
-
-</html>
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

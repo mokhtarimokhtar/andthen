@@ -1,0 +1,29 @@
+<nav id="players-bar" class="players-bar">
+  {% for player in state.players %}
+  <span id="player-{{ player.id }}" class="player-chip">
+    {{ player.nickname }}
+  </span>
+  {% endfor %}
+</nav>
+
+<div id="turn-actions" class="turn-actions" hidden>
+
+  <button
+    id="pass-button"
+    class="link-button"
+    type="button"
+    hidden>
+    Pass turn
+  </button>
+
+  {% if state.me.is_host %}
+  <button
+    id="skip-button"
+    class="link-button"
+    type="button"
+    hidden>
+    Skip turn
+  </button>
+  {% endif %}
+
+</div>
