@@ -40,6 +40,22 @@ def reset_db():
 
     init_db()
 
+def ensure_db():
+    db = sqlite3.connect(DATABASE)
+
+    try:
+        table = db.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='games'"
+        ).fetchone()
+
+        if table is None:
+            with open(SCHEMA, "r", encoding="utf-8") as f:
+                db.executescript(f.read())
+
+            db.commit()
+
+    finally:
+        db.close()
 
 @click.command("init-db")
 def init_db_command():

@@ -1,7 +1,7 @@
 from flask import Flask
 
 from config import SECRET_KEY
-from db import init_app as init_db_app
+from db import init_app as init_db_app, ensure_db
 from routes import register_routes
 
 
@@ -10,6 +10,10 @@ def create_app():
     app.config["SECRET_KEY"] = SECRET_KEY
 
     init_db_app(app)
+
+    with app.app_context():
+        ensure_db()
+
     register_routes(app)
 
     return app
